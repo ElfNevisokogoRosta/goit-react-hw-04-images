@@ -9,7 +9,7 @@ const Gallery = ({ searchQuery, func }) => {
   const [pageNumber, setPageNumber] = useState(1);
   useEffect(() => {
     setQuery(state => searchQuery);
-  });
+  }, []);
   const { loading, error, images, hasMore } = useImagesSearch(
     query,
     pageNumber
