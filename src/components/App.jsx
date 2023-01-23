@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Button from './Button/Button';
 import Form from './Form/Form';
 import Gallery from './Gallery/Gallery';
 import Modal from './Modal/Modal';
