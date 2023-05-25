@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-
+import { HeaderContainer, Form, Input, Btn } from './Header.styled';
 interface HeaderProps {
   submitHandler: (
     func: (
@@ -21,23 +21,31 @@ export const Header: React.FC<HeaderProps> = ({ submitHandler }) => {
       return;
     }
     setState(query);
+    setQuery('');
   };
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(pervState => e.target.value.trim());
+    console.log(e.target.value);
   };
   return (
-    <div>
+    <HeaderContainer>
       {' '}
-      <form
+      <Form
         action=""
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           submitHandler(onSubmit);
+          e.currentTarget.reset();
         }}
       >
-        <input type="text" name="query" onChange={inputHandler} />
-        <button type="submit">Search</button>
-      </form>
-    </div>
+        <Input
+          type="text"
+          name="query"
+          onChange={inputHandler}
+          placeholder="Enter searh query"
+        />
+        <Btn type="submit">Search</Btn>
+      </Form>
+    </HeaderContainer>
   );
 };

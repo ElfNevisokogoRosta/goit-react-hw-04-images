@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { usePixabayAPI } from '../utils/usePixabayAPI';
 import { Modal } from './Modal/Modal';
 import { toast, ToastContainer } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import { ImagesList } from './ImagesList/ImagesList';
 import { Header } from './Header/Header';
+import { Container, SearchFor } from './App.styled';
 export interface Image {
   id: string;
   webformatURL: string;
@@ -23,13 +23,6 @@ const App: React.FC = () => {
     largeImageURL: string;
     tags: string;
   }>({ largeImageURL: '', tags: '' });
-  const [response, total, loading, error] = usePixabayAPI(query, page);
-  useEffect(() => {
-    if (response.length === 0) {
-      return;
-    }
-    setImages(prevState => [...prevState, ...response]);
-  }, [response]);
   const submitHandler = (
     func: (
       arg0: string,
@@ -37,10 +30,16 @@ const App: React.FC = () => {
     ) => void
   ) => {
     func(query, setQuery);
-
     setPage(1);
     setImages([]);
   };
+  const [response, total, loading, error] = usePixabayAPI(query, page);
+  useEffect(() => {
+    if (response.length === 0) {
+      return;
+    }
+    setImages(prevState => [...prevState, ...response]);
+  }, [page, query, response]);
   useEffect(() => {
     if (query === '') {
       return;
@@ -77,8 +76,9 @@ const App: React.FC = () => {
     return <>Something going wrong</>;
   }
   return (
-    <>
+    <Container>
       <Header submitHandler={submitHandler} />
+      {query !== '' && <SearchFor>You search {query}</SearchFor>}
       <ImagesList
         images={images}
         total={total}
@@ -87,7 +87,7 @@ const App: React.FC = () => {
       />
       {modal && <Modal imageInfo={modalContent} />}
       <ToastContainer />
-    </>
+    </Container>
   );
 };
 

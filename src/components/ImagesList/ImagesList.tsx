@@ -1,6 +1,7 @@
 import React from 'react';
 import { ImageElement } from '../ImageElement/ImageElement';
 import { Image } from '../App';
+import { List, Btn } from './ImageList.styled';
 interface ImageListProps {
   images: Image[];
   total: number;
@@ -35,23 +36,26 @@ export const ImagesList: React.FC<ImageListProps> = ({
   ) => {
     setState(prevState => prevState + 1);
   };
+  console.log(total, images.length);
   return (
-    <ul className="list">
-      {images &&
-        images.map((image, id: number) => {
-          return (
-            <ImageElement
-              key={`${image.id}-${id}`}
-              image={image}
-              modalHandler={modalHandler}
-            />
-          );
-        })}
-      {total > images.length ? (
-        <button onClick={() => pageHandler(nextPage)}>Next page</button>
+    <>
+      <List className="list">
+        {images &&
+          images.map((image, id: number) => {
+            return (
+              <ImageElement
+                key={`${image.id}-${id}`}
+                image={image}
+                modalHandler={modalHandler}
+              />
+            );
+          })}
+      </List>
+      {total > images.length && images.length !== 0 ? (
+        <Btn onClick={() => pageHandler(nextPage)}>Next page</Btn>
       ) : (
         ''
       )}
-    </ul>
+    </>
   );
 };

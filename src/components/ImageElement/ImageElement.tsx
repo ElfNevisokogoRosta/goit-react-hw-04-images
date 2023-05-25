@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image } from '../App';
+import { ImgContainer, Img } from './ImageElement.styled';
 interface ImageElementProps {
   image: Image;
   modalHandler: (
@@ -32,9 +33,9 @@ export const ImageElement: React.FC<ImageElementProps> = ({
   };
   return (
     <>
-      <li onClick={() => modalHandler(onClickHandler)}>
-        <img src={image.webformatURL} alt={image.tags} />
-      </li>
+      <ImgContainer onClick={() => modalHandler(onClickHandler)}>
+        <Img src={image.webformatURL} alt={image.tags} />
+      </ImgContainer>
     </>
   );
 };
