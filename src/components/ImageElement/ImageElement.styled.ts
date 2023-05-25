@@ -16,11 +16,5 @@ const Img = styled.img`
   display: block;
   box-sizing: border-box;
 `
-const Btn = styled.button`
-  cursor: pointer;
-  width: 328px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-`
+
 export {ImgContainer, Img};
