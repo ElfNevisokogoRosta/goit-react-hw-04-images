@@ -6,7 +6,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ImagesList } from './ImagesList/ImagesList';
 import { Header } from './Header/Header';
-import { Container, SearchFor } from './App.styled';
+import { Container, SearchFor, MainTitle } from './App.styled';
+import { Triangle } from 'react-loader-spinner';
+
 export interface Image {
   id: string;
   webformatURL: string;
@@ -31,15 +33,18 @@ const App: React.FC = () => {
   ) => {
     func(query, setQuery);
     setPage(1);
-    setImages([]);
   };
+  useEffect(() => {
+    setImages([]);
+  }, [query]);
   const [response, total, loading, error] = usePixabayAPI(query, page);
   useEffect(() => {
     if (response.length === 0) {
       return;
     }
     setImages(prevState => [...prevState, ...response]);
-  }, [page, query, response]);
+  }, [response]);
+
   useEffect(() => {
     if (query === '') {
       return;
@@ -72,20 +77,31 @@ const App: React.FC = () => {
   ) => {
     func(page, setPage);
   };
+  const closeModal = (
+    func: (
+      arg0: boolean,
+      arg1: React.Dispatch<React.SetStateAction<boolean>>
+    ) => void
+  ) => {
+    func(modal, setModal);
+  };
   if (error) {
     return <>Something going wrong</>;
   }
   return (
     <Container>
+      <MainTitle>Image searcher</MainTitle>
       <Header submitHandler={submitHandler} />
       {query !== '' && <SearchFor>You search {query}</SearchFor>}
+
       <ImagesList
         images={images}
         total={total}
         pageHandler={pageHandler}
         modalHandler={modalHandler}
       />
-      {modal && <Modal imageInfo={modalContent} />}
+      {loading && query !== '' ? <Triangle /> : ''}
+      {modal && <Modal imageInfo={modalContent} closeModal={closeModal} />}
       <ToastContainer />
     </Container>
   );

@@ -27,6 +27,7 @@ interface ImageListProps {
 export const ImagesList: React.FC<ImageListProps> = ({
   images,
   total,
+
   pageHandler,
   modalHandler,
 }) => {
@@ -36,7 +37,6 @@ export const ImagesList: React.FC<ImageListProps> = ({
   ) => {
     setState(prevState => prevState + 1);
   };
-  console.log(total, images.length);
   return (
     <>
       <List className="list">

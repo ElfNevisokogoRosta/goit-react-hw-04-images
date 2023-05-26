@@ -18,4 +18,14 @@ const SearchFor = styled.p`
   margin-bottom: 30px;
   color: #2a2a2a;
 `
-export {Container, SearchFor}
+const MainTitle = styled.h1`
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 460px;
+  margin: 30px auto 30px auto;
+  text-transform: uppercase;
+  color: #2B3A55;
+  font-size: 48px;
+`
+export {Container, SearchFor, MainTitle}

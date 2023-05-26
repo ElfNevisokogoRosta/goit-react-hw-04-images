@@ -21,11 +21,9 @@ export const Header: React.FC<HeaderProps> = ({ submitHandler }) => {
       return;
     }
     setState(query);
-    setQuery('');
   };
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(pervState => e.target.value.trim());
-    console.log(e.target.value);
   };
   return (
     <HeaderContainer>
